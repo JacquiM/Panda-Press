@@ -1,5 +1,6 @@
 import { Mail, Phone, Globe, Linkedin } from "lucide-react";
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { Link } from "wouter";
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -99,9 +100,9 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <a href="/blog" className="hover:text-white transition-colors duration-200">
+                <Link href="/blog" className="hover:text-white transition-colors duration-200">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
                 <button 

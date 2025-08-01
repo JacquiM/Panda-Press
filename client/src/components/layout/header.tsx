@@ -3,6 +3,9 @@ import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Base path for GitHub Pages
+const basePath = "/Panda-Press";
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
@@ -41,7 +44,7 @@ export default function Header() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <Link href="/">
+              <Link href={`${basePath}/`}>
                 <span className="text-2xl font-bold text-jpanda-primary cursor-pointer">
                   JPanda Solutions
                 </span>
@@ -51,7 +54,7 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/">
+            <Link href={`${basePath}/`}>
               <span className="text-gray-700 hover:text-jpanda-primary transition-colors duration-200 font-medium cursor-pointer">
                 Home
               </span>
@@ -68,7 +71,7 @@ export default function Header() {
             >
               About
             </button>
-            <Link href="/blog">
+            <Link href={`${basePath}/blog`}>
               <span className="text-gray-700 hover:text-jpanda-primary transition-colors duration-200 font-medium cursor-pointer">
                 Blog
               </span>
