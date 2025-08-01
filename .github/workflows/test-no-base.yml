@@ -1,0 +1,50 @@
+name: Test No Base Path
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build without base path
+        run: npm run build:no-base
+
+      - name: Check build output
+        run: |
+          echo "=== BUILD WITHOUT BASE PATH ==="
+          ls -la ./dist/public/
+          echo ""
+          echo "=== INDEX.HTML CONTENT ==="
+          head -20 ./dist/public/index.html
+          echo ""
+          echo "=== ASSETS ==="
+          ls -la ./dist/public/assets/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist/public'
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,64 @@
+name: Diagnose React Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app
+        run: npm run build:github
+
+      - name: Detailed build analysis
+        run: |
+          echo "=== COMPLETE BUILD STRUCTURE ==="
+          find ./dist -type f -exec ls -la {} \;
+          echo ""
+          echo "=== INDEX.HTML FULL CONTENT ==="
+          cat ./dist/public/index.html
+          echo ""
+          echo "=== CHECKING FOR REACT BUNDLE ==="
+          ls -la ./dist/public/assets/ || echo "No assets directory"
+          echo ""
+          echo "=== CHECKING BASE PATH IN FILES ==="
+          grep -r "Panda-Press" ./dist/public/ || echo "No Panda-Press references found"
+
+      - name: Create comparison deployment
+        run: |
+          mkdir -p ./test-comparison
+          # Copy React build
+          cp -r ./dist/public/* ./test-comparison/
+          # Add a test file to verify deployment structure
+          echo "React app should be here - $(date)" > ./test-comparison/react-test.html
+          # Show final structure
+          echo "=== FINAL DEPLOYMENT STRUCTURE ==="
+          find ./test-comparison -type f
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './test-comparison'
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
