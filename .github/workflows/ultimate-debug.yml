@@ -1,0 +1,59 @@
+name: Ultimate Debug
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check repository and environment
+        run: |
+          echo "=== REPOSITORY INFO ==="
+          echo "Repository: ${{ github.repository }}"
+          echo "Repository owner: ${{ github.repository_owner }}"
+          echo "Repository name: ${{ github.event.repository.name }}"
+          echo "Default branch: ${{ github.event.repository.default_branch }}"
+          echo "Repository visibility: ${{ github.event.repository.visibility }}"
+          echo "Pages enabled: ${{ github.event.repository.has_pages }}"
+          echo ""
+          echo "=== EXPECTED URLS ==="
+          echo "Expected URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "Alternative: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/index.html"
+
+      - name: Create absolutely minimal page
+        run: |
+          mkdir -p pages-deploy
+          echo "Hello World - $(date)" > pages-deploy/index.html
+          echo "TEST PAGE" > pages-deploy/test.html
+          echo "=== Files created ==="
+          ls -la pages-deploy/
+          cat pages-deploy/index.html
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './pages-deploy'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Show deployment info
+        run: |
+          echo "=== DEPLOYMENT RESULTS ==="
+          echo "Page URL from step: ${{ steps.deployment.outputs.page_url }}"
+          echo "Pages URL from setup: ${{ steps.pages.outputs.base_url }}"
+          echo "Expected URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
