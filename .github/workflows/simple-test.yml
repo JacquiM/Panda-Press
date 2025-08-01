@@ -1,0 +1,56 @@
+name: Simple Static Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create minimal test site
+        run: |
+          mkdir deploy
+          cat > deploy/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>JPanda Solutions Test</title>
+              <style>
+                  body { font-family: Arial, sans-serif; margin: 40px; }
+                  .container { max-width: 800px; margin: 0 auto; }
+                  h1 { color: #333; }
+                  .status { background: #e8f5e8; padding: 20px; border-radius: 8px; }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>🐼 JPanda Solutions</h1>
+                  <div class="status">
+                      <h2>✅ GitHub Pages is Working!</h2>
+                      <p>This is a test deployment to verify GitHub Pages functionality.</p>
+                      <p><strong>Repository:</strong> JacquiM/Panda-Press</p>
+                      <p><strong>Deployed:</strong> $(date)</p>
+                      <p><strong>URL:</strong> https://JacquiM.github.io/Panda-Press/</p>
+                  </div>
+                  <p>If you can see this page, the deployment infrastructure is working correctly.</p>
+              </div>
+          </body>
+          </html>
+          EOF
+          
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy
+          
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
