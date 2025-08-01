@@ -76,9 +76,21 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       const { blogPosts } = await import('@/data/blog-posts-complete');
       const post = blogPosts.find(p => p.slug === slug);
       if (post) {
+        // Convert markdown to HTML using marked
+        const htmlContent = typeof marked.parse === 'function' 
+          ? await marked.parse(post.content)
+          : marked(post.content);
+          
+        console.log('Markdown conversion debug:', {
+          originalLength: post.content.length,
+          convertedLength: htmlContent.length,
+          originalStart: post.content.substring(0, 100),
+          convertedStart: htmlContent.substring(0, 100)
+        });
+          
         return {
           ...post,
-          content: marked.parse(post.content), // Convert markdown to HTML
+          content: htmlContent,
           readTime: post.difficulty || "5 min read"
         };
       }
@@ -100,9 +112,14 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       const { blogPosts } = await import('@/data/blog-posts');
       const post = blogPosts.find(p => p.slug === slug);
       if (post) {
+        // Convert markdown to HTML using marked
+        const htmlContent = typeof marked.parse === 'function' 
+          ? await marked.parse(post.content)
+          : marked(post.content);
+          
         return {
           ...post,
-          content: marked.parse(post.content), // Convert markdown to HTML
+          content: htmlContent,
           readTime: post.difficulty || "5 min read"
         };
       }

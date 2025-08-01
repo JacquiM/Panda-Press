@@ -109,31 +109,103 @@
 }
 
 /* Blog post content styling */
+.prose {
+  line-height: 1.75;
+  color: #374151;
+}
+
+.prose h1 {
+  color: var(--jpanda-primary);
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.111;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.prose h2 {
+  color: var(--jpanda-primary);
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.333;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  color: var(--jpanda-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.prose p {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose ul {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.625rem;
+}
+
+.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose strong {
+  color: var(--jpanda-primary);
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--jpanda-accent);
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: var(--jpanda-primary);
+}
+
 .prose pre {
   @apply bg-gray-50 border border-gray-200 rounded-lg p-4 overflow-x-auto;
+  margin-top: 1.7rem;
+  margin-bottom: 1.7rem;
 }
 
 .prose code {
   @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm;
+  color: var(--jpanda-secondary);
+  font-weight: 600;
 }
 
 .prose pre code {
   @apply bg-transparent p-0 text-sm;
+  color: #1f2937;
 }
 
 .prose blockquote {
   @apply border-l-4 border-jpanda-accent bg-gray-50 p-4 my-4 italic;
+  quotes: "\201C""\201D""\2018""\2019";
 }
 
 .prose table {
   @apply border-collapse border border-gray-300 w-full;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .prose th,
 .prose td {
   @apply border border-gray-300 px-4 py-2;
+  text-align: left;
 }
 
 .prose th {
   @apply bg-gray-50 font-semibold;
+  color: var(--jpanda-primary);
 }
