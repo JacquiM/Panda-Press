@@ -78,7 +78,7 @@ export default function BlogPreview() {
                   <p className="text-gray-600 mb-4 text-sm line-clamp-3">
                     {post.excerpt}
                   </p>
-                  <Link href={`/blog/${post.id}`}>
+                  <Link href={`/blog/${post.slug}`}>
                     <span className="text-jpanda-primary hover:text-jpanda-accent font-semibold transition-colors duration-200 cursor-pointer inline-flex items-center">
                       Read More <ArrowRight className="ml-1 h-4 w-4" />
                     </span>

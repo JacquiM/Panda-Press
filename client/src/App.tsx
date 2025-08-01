@@ -13,7 +13,7 @@ function AppRouter() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/blog" component={Blog} />
-        <Route path="/blog/:id" component={Blog} />
+        <Route path="/blog/:slug" component={Blog} />
         {/* Fallback to 404 */}
         <Route component={NotFound} />
       </Switch>
