@@ -165,7 +165,7 @@ export default function Blog() {
                   </div>
                   
                   <div 
-                    className="prose prose-lg max-w-none prose-headings:text-jpanda-primary prose-links:text-jpanda-accent prose-strong:text-jpanda-primary"
+                    className="prose prose-lg max-w-none prose-headings:text-jpanda-primary prose-links:text-jpanda-accent prose-strong:text-jpanda-primary prose-code:text-jpanda-secondary prose-pre:bg-gray-50 prose-blockquote:border-jpanda-accent prose-blockquote:text-gray-700 prose-li:marker:text-jpanda-primary"
                     dangerouslySetInnerHTML={{ __html: currentPost.content }}
                   />
                 </article>

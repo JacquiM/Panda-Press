@@ -78,6 +78,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       if (post) {
         return {
           ...post,
+          content: marked.parse(post.content), // Convert markdown to HTML
           readTime: post.difficulty || "5 min read"
         };
       }
@@ -101,6 +102,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       if (post) {
         return {
           ...post,
+          content: marked.parse(post.content), // Convert markdown to HTML
           readTime: post.difficulty || "5 min read"
         };
       }
