@@ -20,10 +20,21 @@ export default function Blog() {
 
   // Set selected post from URL parameter
   useEffect(() => {
+    console.log('Blog routing debug:', { match, params, location });
     if (params?.id) {
       setSelectedPost(params.id);
+      console.log('Setting selected post from params:', params.id);
+    } else if (match) {
+      // Extract ID from current location if useRoute doesn't work with base path
+      const pathParts = location.split('/');
+      const blogIndex = pathParts.indexOf('blog');
+      if (blogIndex !== -1 && pathParts[blogIndex + 1]) {
+        const postId = pathParts[blogIndex + 1];
+        setSelectedPost(postId);
+        console.log('Setting selected post from location parsing:', postId);
+      }
     }
-  }, [params?.id]);
+  }, [params?.id, match, location]);
 
   // Fetch all blog posts
   const { data: blogPosts = [], isLoading: isLoadingPosts } = useQuery({
