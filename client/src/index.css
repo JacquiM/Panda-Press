@@ -172,40 +172,57 @@
 }
 
 .prose pre {
-  @apply bg-gray-50 border border-gray-200 rounded-lg p-4 overflow-x-auto;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
   margin-top: 1.7rem;
   margin-bottom: 1.7rem;
 }
 
 .prose code {
-  @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm;
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
   color: var(--jpanda-secondary);
   font-weight: 600;
 }
 
 .prose pre code {
-  @apply bg-transparent p-0 text-sm;
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.875rem;
   color: #1f2937;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-jpanda-accent bg-gray-50 p-4 my-4 italic;
+  border-left: 4px solid var(--jpanda-accent);
+  background-color: #f9fafb;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
   quotes: "\201C""\201D""\2018""\2019";
 }
 
 .prose table {
-  @apply border-collapse border border-gray-300 w-full;
+  border-collapse: collapse;
+  border: 1px solid #d1d5db;
+  width: 100%;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
 .prose th,
 .prose td {
-  @apply border border-gray-300 px-4 py-2;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
   text-align: left;
 }
 
 .prose th {
-  @apply bg-gray-50 font-semibold;
+  background-color: #f9fafb;
+  font-weight: 600;
   color: var(--jpanda-primary);
 }
