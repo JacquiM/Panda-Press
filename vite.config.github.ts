@@ -16,6 +16,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
-  // Configure for GitHub Pages deployment
+  // Configure for GitHub Pages deployment  
+  // Based on your working URL: jacquim.github.io/Panda-Press/
   base: '/Panda-Press/',
 });

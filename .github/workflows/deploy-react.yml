@@ -1,0 +1,63 @@
+name: Deploy React App to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app for GitHub Pages
+        run: npm run build:github
+
+      - name: Debug build output
+        run: |
+          echo "=== Build Output Structure ==="
+          find ./dist -type f | head -20
+          echo ""
+          echo "=== Index.html content preview ==="
+          head -10 ./dist/public/index.html
+          echo ""
+          echo "=== Assets check ==="
+          ls -la ./dist/public/assets/ | head -10
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist/public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Output URLs
+        run: |
+          echo "🎉 Deployment successful!"
+          echo "Your React app should be available at:"
+          echo "https://jacquim.github.io/Panda-Press/"
