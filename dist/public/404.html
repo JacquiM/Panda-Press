@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <title>JPanda Solutions</title>
     <script type="text/javascript">
-      // Immediate redirect to index.html for GitHub Pages
+      // GitHub Pages SPA redirect
       var l = window.location;
       var basePath = '/Panda-Press/';
       
-      // Simple redirect to base path
+      // If we're not at the base path, redirect there
       if (l.pathname !== basePath) {
-        l.replace(basePath);
+        l.replace(basePath + '#' + l.pathname.slice(basePath.length) + l.search);
       }
     </script>
   </head>
