@@ -226,3 +226,48 @@
   font-weight: 600;
   color: var(--jpanda-primary);
 }
+
+/* Handle broken images gracefully */
+.prose img {
+  position: relative;
+}
+
+.prose img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  display: none;
+}
+
+.prose img::after {
+  content: "🖼️ Image temporarily unavailable - Will be restored soon";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  display: none;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.prose img[src*="wp-content"]::before,
+.prose img[src*="wp-content"]::after {
+  display: block;
+}
+
+.prose img[src*="wp-content"] {
+  opacity: 0;
+  min-height: 200px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+}
