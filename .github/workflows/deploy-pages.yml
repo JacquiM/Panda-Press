@@ -34,10 +34,10 @@ jobs:
         run: npm ci
 
       - name: Build for GitHub Pages
-        run: npm run build:custom-domain
+        run: npm run build:github
 
       - name: Create CNAME file
-        run: echo "thejpanda.com" > ./dist/public/CNAME
+        run: echo "# Temporarily disabled for testing" > ./dist/public/CNAME.disabled
 
       - name: Debug build output
         run: |
