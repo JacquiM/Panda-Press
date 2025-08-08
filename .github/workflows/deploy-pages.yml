@@ -36,9 +36,6 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run build:github
 
-      - name: Create CNAME file
-        run: echo "# Temporarily disabled for testing" > ./dist/public/CNAME.disabled
-
       - name: Debug build output
         run: |
           echo "=== Build directory structure ==="
