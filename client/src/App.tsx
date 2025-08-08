@@ -9,7 +9,7 @@ import Blog from "@/pages/blog";
 
 function AppRouter() {
   return (
-    <Router base="/Panda-Press">
+    <Router base="/">
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/blog" component={Blog} />
