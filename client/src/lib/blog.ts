@@ -27,8 +27,11 @@ export interface BlogPostMeta {
 // Function to get all blog post metadata
 export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
   try {
-    // For GitHub Pages deployment, use comprehensive blog data
-    if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
+    // For GitHub Pages deployment (both github.io and custom domains), use comprehensive blog data
+    if (typeof window !== 'undefined' && 
+        (window.location.hostname.includes('github.io') || 
+         window.location.hostname === 'thejpanda.com' ||
+         window.location.hostname === 'localhost')) {
       const { blogPosts } = await import('@/data/blog-posts-complete');
       return blogPosts.map(post => ({
         id: post.id,
@@ -71,15 +74,16 @@ export async function getAllBlogPosts(): Promise<BlogPostMeta[]> {
 // Function to get a single blog post by slug
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
-    // For GitHub Pages deployment, use comprehensive blog data
-    if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
+    // For GitHub Pages deployment (both github.io and custom domains), use comprehensive blog data
+    if (typeof window !== 'undefined' && 
+        (window.location.hostname.includes('github.io') || 
+         window.location.hostname === 'thejpanda.com' ||
+         window.location.hostname === 'localhost')) {
       const { blogPosts } = await import('@/data/blog-posts-complete');
       const post = blogPosts.find(p => p.slug === slug);
       if (post) {
         // Convert markdown to HTML using marked
-        const htmlContent = typeof marked.parse === 'function' 
-          ? await marked.parse(post.content)
-          : marked(post.content);
+        const htmlContent = (await marked(post.content)) as string;
           
         console.log('Markdown conversion debug:', {
           originalLength: post.content.length,
@@ -113,9 +117,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       const post = blogPosts.find(p => p.slug === slug);
       if (post) {
         // Convert markdown to HTML using marked
-        const htmlContent = typeof marked.parse === 'function' 
-          ? await marked.parse(post.content)
-          : marked(post.content);
+        // Convert markdown to HTML using marked
+        const htmlContent = (await marked(post.content)) as string;
           
         return {
           ...post,
