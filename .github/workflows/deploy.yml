@@ -32,6 +32,9 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run build:github
 
+      - name: Create CNAME file
+        run: echo "thejpanda.com" > ./dist/public/CNAME
+
       - name: Debug build output
         run: |
           echo "=== Build Output Debug ==="
