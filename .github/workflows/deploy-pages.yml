@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Build for GitHub Pages
-        run: npm run build:github
+        run: npm run build:custom-domain
 
       - name: Create CNAME file
         run: echo "thejpanda.com" > ./dist/public/CNAME
