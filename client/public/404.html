@@ -1,20 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>JPanda Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - JPanda Solutions</title>
     <script type="text/javascript">
-      // GitHub Pages SPA redirect
+      // GitHub Pages SPA redirect for custom domain
       var l = window.location;
-      var basePath = '/Panda-Press/';
       
-      // If we're not at the base path, redirect there
-      if (l.pathname !== basePath) {
-        l.replace(basePath + '#' + l.pathname.slice(basePath.length) + l.search);
+      // For custom domain (thejpanda.com), redirect to React app with hash
+      // This allows the React router to handle the route
+      if (l.pathname !== '/') {
+        var redirectUrl = '/#' + l.pathname + l.search;
+        console.log('404 redirect:', l.pathname, '->', redirectUrl);
+        l.replace(redirectUrl);
       }
     </script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        text-align: center;
+        max-width: 500px;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #005A7A;
+        margin-bottom: 20px;
+      }
+      .message {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #005A7A;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
-    <p>Redirecting to JPanda Solutions...</p>
+    <div class="container">
+      <div class="logo">🐼 JPanda Solutions</div>
+      <div class="message">
+        Redirecting you to the right place...
+      </div>
+      <div class="spinner"></div>
+      <p style="color: #999; font-size: 14px; margin-top: 20px;">
+        If you're not redirected automatically, 
+        <a href="/" style="color: #005A7A;">click here</a>
+      </p>
+    </div>
   </body>
 </html>
